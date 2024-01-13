@@ -41,7 +41,7 @@ async function loadImages() {
     if (images.hits.length <= 0) {
       iziToast.show({ message: 'Sorry, there are no images matching your search query. Please try again!'});
       loader.classList.remove("loader-active");
-    } else if (Math.ceil(images.totalHits / perPage) < page) {
+    } else if (Math.ceil(images.totalHits / perPage) <= page) {
       iziToast.show({message: "We're sorry, but you've reached the end of search results."})
       loader.classList.remove("loader-active");
       loadBtn.classList.remove("load-btn-active"); 
