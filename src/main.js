@@ -44,7 +44,7 @@ async function loadImages() {
     } else if (Math.ceil(images.totalHits / perPage) < page) {
       iziToast.show({message: "We're sorry, but you've reached the end of search results."})
       loader.classList.remove("loader-active");
-      loadBtn.classList.remove("load-btn-active");
+      loadBtn.classList.remove("load-btn-active"); 
     } else {
       renderImages(images.hits);
       loader.classList.remove("loader-active");
