@@ -44,11 +44,6 @@ async function fetchPosts(searchImg) {
 async function loadImages() {
   loadBtn.classList.remove("load-btn-active");
   loader.classList.add("loader-active");
-  if (gallery.children.length >= totalHits) {
-    loadBtn.classList.remove("load-btn-active"); 
-    loader.classList.remove("loader-active");
-    return iziToast.show({message: "We're sorry, but you've reached the end of search results."});
-  }
   try {
     const images = await fetchPosts(searchImg);
     if (page === 1 && !images.hits.length) {
@@ -59,6 +54,11 @@ async function loadImages() {
       renderImages(images.hits);
       loadBtn.classList.add("load-btn-active");
     } 
+    if (gallery.children.length >= totalHits) {
+      loadBtn.classList.remove("load-btn-active"); 
+      loader.classList.remove("loader-active");
+      iziToast.show({message: "We're sorry, but you've reached the end of search results."});
+    }
   } catch (error) { 
     iziToast.show({ message: `${error}`});
   } finally {
@@ -68,9 +68,9 @@ async function loadImages() {
 
 form.addEventListener("submit", event => {
   event.preventDefault();
-  gallery.textContent = '';
   page = 1;
   searchImg = event.currentTarget.search.value;
+  gallery.textContent = '';
   loadImages();
   event.currentTarget.reset();
 });
